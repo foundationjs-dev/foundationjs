@@ -1,6 +1,9 @@
 import { rm } from "node:fs/promises";
 import { resolve } from "node:path";
 
+import { getArchetype } from "@paszed/archetypes";
+
+import { hasCapability } from "./capabilities/index.js";
 import { createHookRunner } from "./hooks/index.js";
 import { copyProject } from "./init/copy-project.js";
 import { createHookContext } from "./init/create-hook-context.js";
@@ -23,6 +26,7 @@ export async function initProject(
 	validateProjectName(name);
 
 	const archetype = resolveArchetype(options);
+	const archetypeManifest = getArchetype(archetype);
 	const destination = resolve(process.cwd(), name);
 
 	const context = createHookContext(name, destination, archetype);
@@ -42,13 +46,19 @@ export async function initProject(
 
 		await hooks.run("afterCreate", context);
 
-		if (options.installDependencies !== false) {
+		if (
+			hasCapability(archetypeManifest, "dependencies") &&
+			options.installDependencies !== false
+		) {
 			await installDependencies(destination);
 
 			await hooks.run("afterInstall", context);
 		}
 
-		if (options.initializeGit !== false) {
+		if (
+			hasCapability(archetypeManifest, "git") &&
+			options.initializeGit !== false
+		) {
 			await initializeGit(destination, options.commitMessage);
 		}
 

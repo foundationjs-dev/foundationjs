@@ -5,6 +5,6 @@ export function isArchetype(
 	value: string,
 ): value is Archetype {
 	return ARCHETYPE_REGISTRY.some(
-		(item) => item.name === value,
+		(archetype) => archetype.name === value,
 	);
 }

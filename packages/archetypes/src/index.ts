@@ -1,12 +1,14 @@
 export * from "./archetype.js";
 export * from "./assert-archetype.js";
+export * from "./capabilities.js";
 export * from "./copy-archetype.js";
 export * from "./get-archetype.js";
 export * from "./get-archetype-path.js";
-export * from "./is-archetype.js";
 export * from "./list-archetypes.js";
 export { ARCHETYPE_REGISTRY } from "./registry.js";
 export * from "./render-archetype.js";
 export * from "./render-archetypes.js";
 export * from "./render-directory.js";
 export * from "./template-values.js";
+export * from "./manifest.js";
+export * from "./is-archetype.js";

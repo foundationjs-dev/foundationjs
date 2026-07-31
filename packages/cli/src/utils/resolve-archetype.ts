@@ -1,16 +1,17 @@
 import {
 	type Archetype,
 	getArchetype,
-	isArchetype,
 	listArchetypes,
 } from "@paszed/archetypes";
 
-export function resolveArchetype(value?: string): Archetype | undefined {
+export function resolveArchetype(value?: string): Archetype {
 	if (!value) {
-		return undefined;
+		return "platform";
 	}
 
-	if (!isArchetype(value)) {
+	try {
+		return getArchetype(value as Archetype).name;
+	} catch {
 		const available = listArchetypes()
 			.map((archetype) => archetype.name)
 			.join("\n  ");
@@ -19,6 +20,4 @@ export function resolveArchetype(value?: string): Archetype | undefined {
 			`Unknown archetype: "${value}"\n\nAvailable archetypes:\n  ${available}`,
 		);
 	}
-
-	return getArchetype(value).name;
 }

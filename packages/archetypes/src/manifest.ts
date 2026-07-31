@@ -1,11 +1,8 @@
+import type { ArchetypeCapability } from "./capabilities.js";
+
 export type ArchetypeKind =
 	| "project"
 	| "building-block";
-
-export type ArchetypeCapability =
-	| "git"
-	| "dependencies"
-	| "metadata";
 
 export interface ArchetypeManifest {
 	readonly name: string;
