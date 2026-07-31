@@ -8,15 +8,36 @@ export function registerArchetypesCommand(program: Command): void {
 		.action(() => {
 			const archetypes = listArchetypes();
 
+			const projects = archetypes.filter(
+				(archetype) => archetype.kind === "project",
+			);
+
+			const buildingBlocks = archetypes.filter(
+				(archetype) => archetype.kind === "building-block",
+			);
+
 			console.log("");
 			console.log("Archetypes");
 			console.log("──────────");
 
-			for (const archetype of archetypes) {
+			if (projects.length > 0) {
 				console.log("");
-				console.log(`${archetype.name}`);
-				console.log(`  ${archetype.description}`);
-				console.log(`  Kind: ${archetype.kind}`);
+				console.log("Projects");
+				console.log("────────");
+
+				for (const archetype of projects) {
+					console.log(`${archetype.name.padEnd(12)} ${archetype.description}`);
+				}
+			}
+
+			if (buildingBlocks.length > 0) {
+				console.log("");
+				console.log("Building Blocks");
+				console.log("───────────────");
+
+				for (const archetype of buildingBlocks) {
+					console.log(`${archetype.name.padEnd(12)} ${archetype.description}`);
+				}
 			}
 
 			console.log("");
