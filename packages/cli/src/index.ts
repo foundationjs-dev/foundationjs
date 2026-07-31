@@ -5,7 +5,10 @@ import { registerWorkspaceCommand } from "./commands/workspace/index.js";
 
 const program = new Command();
 
-program.name("setcamp").description("Developer platform CLI").version("0.1.0");
+program
+	.name("foundation")
+	.description("Developer platform CLI")
+	.version("0.1.0");
 
 registerInitCommand(program);
 registerWorkspaceCommand(program);
