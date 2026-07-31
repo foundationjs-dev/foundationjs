@@ -1,5 +1,4 @@
-import { installDependencies } from "../../init/install-dependencies.js";
-
+import { installDependencies } from "../../package-manager/install.js";
 import type { CapabilityContext } from "../capability-context.js";
 
 export const dependenciesCapability = {
