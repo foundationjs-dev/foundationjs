@@ -1,0 +1,7 @@
+{
+  "name": "cli",
+  "type": "project",
+  "description": "Production TypeScript CLI application.",
+  "language": "typescript",
+  "runtime": "node"
+}

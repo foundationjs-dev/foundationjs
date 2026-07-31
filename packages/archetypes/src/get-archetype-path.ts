@@ -1,13 +1,20 @@
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { ARCHETYPE_REGISTRY } from "./registry.js";
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const archetypesDirectory = join(__dirname, "..");
+const root = join(__dirname, "..");
 
-/**
- * Returns the absolute path to an archetype.
- */
 export function getArchetypePath(name: string): string {
-	return join(archetypesDirectory, name);
+	const archetype = ARCHETYPE_REGISTRY.find(
+		(item) => item.name === name,
+	);
+
+	if (!archetype) {
+		throw new Error(`Unknown archetype: "${name}"`);
+	}
+
+	return join(root, archetype.path);
 }

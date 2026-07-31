@@ -1,0 +1,7 @@
+{
+  "name": "platform",
+  "type": "project",
+  "description": "Production application platform architecture.",
+  "language": "typescript",
+  "framework": "next"
+}

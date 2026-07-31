@@ -1,3 +1,3 @@
-export const ARCHETYPES = ["next-app"] as const;
+import type { ArchetypeManifest } from "./manifest.js";
 
-export type Archetype = (typeof ARCHETYPES)[number];
+export type Archetype = ArchetypeManifest["name"];

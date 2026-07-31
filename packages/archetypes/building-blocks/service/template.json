@@ -1,0 +1,5 @@
+{
+  "name": "service",
+  "type": "building-block",
+  "description": "Application service module."
+}

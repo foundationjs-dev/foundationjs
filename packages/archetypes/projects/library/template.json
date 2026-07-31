@@ -1,0 +1,6 @@
+{
+  "name": "library",
+  "type": "project",
+  "description": "Reusable TypeScript library package.",
+  "language": "typescript"
+}

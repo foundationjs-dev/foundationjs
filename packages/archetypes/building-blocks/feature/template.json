@@ -1,0 +1,5 @@
+{
+  "name": "feature",
+  "type": "building-block",
+  "description": "Feature module with actions, components, hooks, queries, schemas and types."
+}
