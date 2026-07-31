@@ -1,15 +1,13 @@
 import { rm } from "node:fs/promises";
 import { resolve } from "node:path";
 
-import { copyArchetype } from "@paszed/archetypes";
-
-import { createGitProvider } from "./git/index.js";
 import { createHookRunner } from "./hooks/index.js";
+import { copyProject } from "./init/copy-project.js";
 import { createHookContext } from "./init/create-hook-context.js";
-import { createTemplateValues } from "./init/create-template-values.js";
 import { ensureDirectoryDoesNotExist } from "./init/ensure-directory-does-not-exist.js";
 import type { InitProjectOptions } from "./init/init-project-options.js";
 import type { InitProjectResult } from "./init/init-project-result.js";
+import { initializeGit } from "./init/initialize-git.js";
 import { installDependencies } from "./init/install-dependencies.js";
 import { resolveArchetype } from "./init/resolve-archetype.js";
 import { validateProjectName } from "./init/validate-project-name.js";
@@ -36,7 +34,11 @@ export async function initProject(
 	try {
 		await hooks.run("beforeCreate", context);
 
-		await copyArchetype(archetype, destination, createTemplateValues(name));
+		await copyProject({
+			archetype,
+			destination,
+			projectName: name,
+		});
 
 		await hooks.run("afterCreate", context);
 
@@ -47,11 +49,7 @@ export async function initProject(
 		}
 
 		if (options.initializeGit !== false) {
-			const git = createGitProvider();
-
-			await git.init(destination);
-			await git.addAll(destination);
-			await git.commit(destination, options.commitMessage ?? "Initial commit");
+			await initializeGit(destination);
 		}
 
 		await hooks.run("afterInit", context);
