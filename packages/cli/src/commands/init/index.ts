@@ -3,6 +3,7 @@ import type { Command } from "commander";
 
 import { handleError } from "../../errors/handle-error.js";
 import { createProgress, success } from "../../ui/index.js";
+import { resolveArchetype } from "../../utils/resolve-archetype.js";
 
 export function registerInitCommand(program: Command): void {
 	program
@@ -21,7 +22,7 @@ export function registerInitCommand(program: Command): void {
 
 				const result = await initProject({
 					name,
-					archetype: options.archetype,
+					archetype: resolveArchetype(options.archetype),
 					initializeGit: options.git,
 					installDependencies: options.install,
 					commitMessage: options.commitMessage,
