@@ -1,7 +1,17 @@
-import type { CapabilityContext } from "./capability-context.js";
+import type { HookContext } from "../hooks/index.js";
+
+export type CapabilityPhase =
+	| "beforeCreate"
+	| "afterCreate"
+	| "afterInstall"
+	| "afterInit";
 
 export interface Capability {
 	name: string;
 
-	run(context: CapabilityContext): Promise<void>;
+	description: string;
+
+	phase: CapabilityPhase;
+
+	run(context: HookContext): Promise<void>;
 }
