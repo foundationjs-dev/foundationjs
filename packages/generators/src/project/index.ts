@@ -1,22 +1,19 @@
-import { getArchetypePath } from "@paszed/archetypes";
-import { createProject } from "@paszed/devkit";
+import type { Archetype } from "@paszed/archetypes";
+import { copyArchetype } from "@paszed/archetypes";
 
 export interface GenerateProjectOptions {
 	name: string;
 	destination?: string;
-	archetype?: string;
+	archetype?: Archetype;
 }
 
 export async function generateProject({
 	name,
 	destination = process.cwd(),
-	archetype = "next-app",
+	archetype = "platform",
 }: GenerateProjectOptions): Promise<void> {
-	const archetypePath = getArchetypePath(archetype);
-
-	await createProject({
-		name,
-		templatePath: archetypePath,
-		destination,
+	await copyArchetype(archetype, destination, {
+		PROJECT_NAME: name,
+		PACKAGE_NAME: name,
 	});
 }
