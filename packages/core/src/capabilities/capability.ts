@@ -1,7 +1,7 @@
-import type { HookContext } from "../hooks/index.js";
+import type { CapabilityContext } from "./capability-context.js";
 
 export interface Capability {
 	name: string;
 
-	run(context: HookContext): Promise<void>;
+	run(context: CapabilityContext): Promise<void>;
 }
