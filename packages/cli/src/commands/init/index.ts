@@ -7,19 +7,17 @@ export function registerInitCommand(program: Command): void {
 		.command("init")
 		.description("Initialize a new project")
 		.argument("<name>", "Project name")
-		.option(
-			"--archetype <name>",
-			"Project archetype",
-		)
-		.option(
-			"--no-git",
-			"Skip git initialization",
-		)
+		.option("--archetype <name>", "Project archetype")
+		.option("--no-git", "Skip git initialization")
+		.option("--no-install", "Skip dependency installation")
+		.option("--commit-message <message>", "Initial git commit message")
 		.action(async (name: string, options) => {
 			const result = await initProject({
 				name,
 				archetype: options.archetype,
 				initializeGit: options.git,
+				installDependencies: options.install,
+				commitMessage: options.commitMessage,
 			});
 
 			console.log(`

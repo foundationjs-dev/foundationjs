@@ -39,9 +39,11 @@ export async function initProject(
 
 		await hooks.run("afterCreate", context);
 
-		await installDependencies(destination);
+		if (options.installDependencies !== false) {
+			await installDependencies(destination);
 
-		await hooks.run("afterInstall", context);
+			await hooks.run("afterInstall", context);
+		}
 
 		if (options.initializeGit !== false) {
 			const git = createGitProvider();

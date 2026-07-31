@@ -5,4 +5,5 @@ export interface InitProjectOptions {
 	archetype?: Archetype;
 	initializeGit?: boolean;
 	commitMessage?: string;
+	installDependencies?: boolean;
 }
