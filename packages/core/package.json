@@ -25,6 +25,7 @@
 	"dependencies": {
 		"@paszed/archetypes": "workspace:*",
 		"@paszed/devkit": "workspace:*",
+		"execa": "^9.6.0",
 		"validate-npm-package-name": "^8.0.0"
 	},
 	"devDependencies": {

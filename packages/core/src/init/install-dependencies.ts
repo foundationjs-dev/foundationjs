@@ -1,1 +1,10 @@
-export async function installDependencies(_directory: string): Promise<void> {}
+import {
+	createPackageManager,
+	detectPackageManager,
+} from "../package-manager/index.js";
+
+export async function installDependencies(directory: string): Promise<void> {
+	const packageManager = createPackageManager(detectPackageManager());
+
+	await packageManager.install(directory);
+}
