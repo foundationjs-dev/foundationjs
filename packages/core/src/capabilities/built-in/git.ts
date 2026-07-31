@@ -7,7 +7,7 @@ export const gitCapability = {
 
 	description: "Initialize git repository",
 
-	phase: "afterCreate",
+	phases: ["afterCreate"],
 
 	async run(context: HookContext): Promise<void> {
 		await initializeGit(context.destination, context.commitMessage);

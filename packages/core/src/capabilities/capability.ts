@@ -11,7 +11,7 @@ export interface Capability {
 
 	description: string;
 
-	phase: CapabilityPhase;
+	phases: CapabilityPhase[];
 
 	run(context: HookContext): Promise<void>;
 }

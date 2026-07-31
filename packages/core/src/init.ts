@@ -10,10 +10,8 @@ import type { InitProjectOptions } from "./init/init-project-options.js";
 import type { InitProjectResult } from "./init/init-project-result.js";
 import { resolveArchetype } from "./init/resolve-archetype.js";
 import { validateProjectName } from "./init/validate-project-name.js";
+import { installDependencies } from "./package-manager/install.js";
 
-/**
- * Initializes a new project.
- */
 export async function initProject(
 	options: InitProjectOptions,
 ): Promise<InitProjectResult> {
@@ -38,6 +36,8 @@ export async function initProject(
 	try {
 		await hooks.run("beforeCreate", context);
 
+		await runCapabilities(archetype.capabilities, "beforeCreate", context);
+
 		await copyProject({
 			archetype,
 			destination,
@@ -45,7 +45,17 @@ export async function initProject(
 
 		await hooks.run("afterCreate", context);
 
-		await runCapabilities(archetype.capabilities, context);
+		await runCapabilities(archetype.capabilities, "afterCreate", context);
+
+		if (options.installDependencies !== false) {
+			await installDependencies(destination);
+
+			await hooks.run("afterInstall", context);
+
+			await runCapabilities(archetype.capabilities, "afterInstall", context);
+		}
+
+		await runCapabilities(archetype.capabilities, "afterInit", context);
 
 		await hooks.run("afterInit", context);
 	} catch (error) {
