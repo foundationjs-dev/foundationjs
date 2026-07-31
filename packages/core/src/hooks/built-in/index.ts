@@ -1,1 +1,1 @@
-export * from "./example-hook.js";
+export * from "./create-foundation-metadata.js";
