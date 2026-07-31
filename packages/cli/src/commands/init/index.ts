@@ -1,6 +1,5 @@
-import { Command } from "commander";
-
 import { initProject } from "@paszed/core";
+import type { Command } from "commander";
 
 import { handleError } from "../../errors/handle-error.js";
 import { createProgress, success } from "../../ui/index.js";

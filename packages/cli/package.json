@@ -2,38 +2,32 @@
 	"name": "@paszed/cli",
 	"version": "0.1.0",
 	"private": true,
-	"description": "Developer CLI for the Paszed Developer Platform.",
+	"description": "CLI interface for Foundation.",
 	"license": "MIT",
 	"type": "module",
-
-	"bin": {
-		"paszed": "./dist/index.js"
-	},
-
 	"files": [
 		"dist"
 	],
-
-	"sideEffects": false,
-
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
 			"default": "./dist/index.js"
 		}
 	},
-
 	"types": "./dist/index.d.ts",
-
 	"scripts": {
 		"build": "tsc --project tsconfig.json",
 		"clean": "rimraf dist tsconfig.tsbuildinfo",
-		"typecheck": "tsc --project tsconfig.json --noEmit"
+		"lint": "biome check .",
+		"typecheck": "tsc --project tsconfig.json --noEmit",
+		"test": "vitest run"
 	},
-
 	"dependencies": {
 		"@paszed/core": "workspace:*",
 		"@paszed/devkit": "workspace:*",
-		"commander": "^15.0.0"
+		"commander": "^14.0.0"
+	},
+	"devDependencies": {
+		"vitest": "^3.2.4"
 	}
 }
