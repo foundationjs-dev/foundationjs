@@ -1,7 +1,7 @@
-import type { Archetype } from "@paszed/archetypes";
+import { type Archetype, DEFAULT_ARCHETYPE } from "@paszed/archetypes";
 
 import type { InitProjectOptions } from "./init-project-options.js";
 
 export function resolveArchetype(options: InitProjectOptions): Archetype {
-	return options.archetype ?? "platform";
+	return options.archetype ?? DEFAULT_ARCHETYPE;
 }

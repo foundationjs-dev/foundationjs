@@ -1,5 +1,7 @@
 import type { ArchetypeManifest } from "./manifest.js";
 
+export const DEFAULT_ARCHETYPE = "platform";
+
 export const ARCHETYPE_REGISTRY = [
 	{
 		name: "platform",
@@ -31,4 +33,4 @@ export const ARCHETYPE_REGISTRY = [
 		kind: "building-block",
 		path: "building-blocks/service",
 	},
-] as const satisfies readonly ArchetypeManifest[];
+] satisfies ArchetypeManifest[];
