@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://paszed.dev/schemas/bootstrapper.schema.json",
+
+  "title": "Bootstrapper Project",
+
+  "type": "object",
+
+  "required": [
+    "schemaVersion",
+    "name",
+    "type"
+  ],
+
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "minimum": 1
+    },
+
+    "name": {
+      "type": "string"
+    },
+
+    "type": {
+      "type": "string"
+    },
+
+    "owner": {
+      "type": "string"
+    },
+
+    "language": {
+      "type": "string"
+    },
+
+    "packageManager": {
+      "type": "string"
+    }
+  },
+
+  "additionalProperties": true
+}

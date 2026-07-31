@@ -1,8 +1,0 @@
-{
-	"name": "@paszed/templates",
-	"version": "0.1.0",
-	"private": true,
-	"description": "Project templates for Paszed generators.",
-	"license": "MIT",
-	"type": "module"
-}

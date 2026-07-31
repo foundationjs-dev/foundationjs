@@ -1,11 +1,11 @@
 import fg from "fast-glob";
 
-import { renderTemplate } from "./render-template.js";
+import { renderArchetype } from "./render-archetype.js";
 
 /**
- * Renders every text file inside a template.
+ * Renders every text file inside an archetype.
  */
-export async function renderTemplates(
+export async function renderArchetypes(
 	root: string,
 	values: Record<string, string>,
 ): Promise<void> {
@@ -17,6 +17,6 @@ export async function renderTemplates(
 	});
 
 	for (const file of files) {
-		await renderTemplate(file, values);
+		await renderArchetype(file, values);
 	}
 }

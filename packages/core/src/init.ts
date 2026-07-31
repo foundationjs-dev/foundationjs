@@ -1,6 +1,6 @@
 import { resolve } from "node:path";
 
-import { copyTemplate } from "@paszed/devkit";
+import { copyArchetype } from "@paszed/archetypes";
 
 /**
  * Initializes a new project.
@@ -8,7 +8,7 @@ import { copyTemplate } from "@paszed/devkit";
 export async function initProject(name: string): Promise<void> {
 	const destination = resolve(process.cwd(), name);
 
-	await copyTemplate("next-app", destination, {
+	await copyArchetype("next-app", destination, {
 		PROJECT_NAME: name,
 		PACKAGE_NAME: name,
 	});

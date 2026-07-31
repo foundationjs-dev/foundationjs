@@ -1,10 +1,10 @@
 import { readdir } from "node:fs/promises";
 
 /**
- * Returns all available templates.
+ * Returns all available archetypes.
  */
-export async function listTemplates(root: string): Promise<string[]> {
-	return readdir(`${root}/templates`, {
+export async function listArchetypes(root: string): Promise<string[]> {
+	return readdir(`${root}/archetypes`, {
 		withFileTypes: true,
 	}).then((entries) =>
 		entries

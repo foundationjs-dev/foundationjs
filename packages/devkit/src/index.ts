@@ -4,7 +4,6 @@ export * from "./node/index.js";
 export * from "./package/index.js";
 export * from "./pnpm/index.js";
 export * from "./project/index.js";
-export * from "./templates/index.js";
 export * from "./turbo/index.js";
 export * from "./types/index.js";
 export * from "./workspace/index.js";

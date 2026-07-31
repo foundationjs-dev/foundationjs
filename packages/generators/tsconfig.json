@@ -1,5 +1,5 @@
 {
-	"extends": "../tsconfig/library.json",
+	"extends": "../configs/tsconfig/library.json",
 
 	"compilerOptions": {
 		"composite": true,

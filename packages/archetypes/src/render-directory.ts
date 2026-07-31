@@ -1,7 +1,7 @@
 import { join } from "node:path";
 import fg from "fast-glob";
 
-import { renderTemplate } from "./render-template.js";
+import { renderArchetype } from "./render-archetype.js";
 
 export async function renderDirectory(
 	directory: string,
@@ -14,6 +14,6 @@ export async function renderDirectory(
 	});
 
 	for (const file of files) {
-		await renderTemplate(join(directory, file), values);
+		await renderArchetype(join(directory, file), values);
 	}
 }

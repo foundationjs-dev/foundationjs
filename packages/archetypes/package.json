@@ -1,12 +1,13 @@
 {
-  "name": "@paszed/generators",
+  "name": "@paszed/archetypes",
   "version": "0.1.0",
   "private": true,
-  "description": "Project and package generators for the Paszed Developer Platform.",
+  "description": "Project archetypes for Foundation.",
   "license": "MIT",
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "archetypes"
   ],
   "exports": {
     ".": {
@@ -20,7 +21,8 @@
     "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@paszed/archetypes": "workspace:*",
-    "@paszed/devkit": "workspace:*"
+    "@paszed/devkit": "workspace:*",
+    "fast-glob": "^3.3.3",
+    "mustache": "^4.2.0"
   }
 }

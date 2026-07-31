@@ -27,7 +27,7 @@
 
 	"scripts": {
 		"build": "tsc --project tsconfig.json",
-		"clean": "rimraf dist",
+		"clean": "rimraf dist tsconfig.tsbuildinfo",
 		"typecheck": "tsc --project tsconfig.json --noEmit"
 	},
 
