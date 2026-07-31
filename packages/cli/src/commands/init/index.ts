@@ -3,7 +3,7 @@ import { Command } from "commander";
 import { initProject } from "@paszed/core";
 
 import { handleError } from "../../errors/handle-error.js";
-import { success } from "../../ui/index.js";
+import { createProgress, success } from "../../ui/index.js";
 
 export function registerInitCommand(program: Command): void {
 	program
@@ -15,7 +15,11 @@ export function registerInitCommand(program: Command): void {
 		.option("--no-install", "Skip dependency installation")
 		.option("--commit-message <message>", "Initial git commit message")
 		.action(async (name: string, options) => {
+			const progress = createProgress();
+
 			try {
+				progress.start("Creating project");
+
 				const result = await initProject({
 					name,
 					archetype: options.archetype,
@@ -24,14 +28,16 @@ export function registerInitCommand(program: Command): void {
 					commitMessage: options.commitMessage,
 				});
 
-				success("Project created successfully.");
+				progress.success("Project initialized");
+				progress.stop();
 
-				console.log(`
+				success(`
 Project: ${result.name}
 Location: ${result.destination}
 Archetype: ${result.archetype}
 `);
 			} catch (reason) {
+				progress.stop();
 				handleError(reason);
 			}
 		});
