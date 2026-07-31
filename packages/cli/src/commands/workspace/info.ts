@@ -1,5 +1,7 @@
 import { listPackages, loadWorkspace, readPackageJson } from "@paszed/devkit";
 
+import { info } from "../../ui/index.js";
+
 /**
  * Prints information about the current workspace.
  */
@@ -11,14 +13,13 @@ export async function workspaceInfo(): Promise<void> {
 		workspace.pnpmWorkspace.packages,
 	);
 
-	console.log("");
-	console.log("Workspace");
+	info("Workspace");
 	console.log("─────────");
 	console.log(`Root: ${workspace.root}`);
 	console.log(`Name: ${workspace.packageJson.name}`);
 
 	console.log("");
-	console.log("Packages");
+	info("Packages");
 	console.log("────────");
 
 	for (const directory of directories) {
@@ -28,7 +29,7 @@ export async function workspaceInfo(): Promise<void> {
 	}
 
 	console.log("");
-	console.log("Package Manager");
+	info("Package Manager");
 	console.log("───────────────");
 	console.log("pnpm");
 
