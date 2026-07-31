@@ -1,11 +1,11 @@
 import type { ArchetypeCapability } from "@paszed/archetypes";
 
-import type { CapabilityContext } from "./capability-context.js";
+import type { HookContext } from "../hooks/index.js";
 import { CAPABILITY_REGISTRY } from "./registry.js";
 
 export async function runCapabilities(
-	capabilities: ArchetypeCapability[],
-	context: CapabilityContext,
+	capabilities: readonly ArchetypeCapability[],
+	context: HookContext,
 ): Promise<void> {
 	for (const name of capabilities) {
 		const capability = CAPABILITY_REGISTRY.get(name);

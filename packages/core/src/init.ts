@@ -1,13 +1,13 @@
 import { rm } from "node:fs/promises";
 import { resolve } from "node:path";
 
+import { runCapabilities } from "./capabilities/index.js";
 import { createHookRunner } from "./hooks/index.js";
 import { copyProject } from "./init/copy-project.js";
 import { createHookContext } from "./init/create-hook-context.js";
 import { ensureDirectoryDoesNotExist } from "./init/ensure-directory-does-not-exist.js";
 import type { InitProjectOptions } from "./init/init-project-options.js";
 import type { InitProjectResult } from "./init/init-project-result.js";
-import { installDependencies } from "./init/install-dependencies.js";
 import { resolveArchetype } from "./init/resolve-archetype.js";
 import { validateProjectName } from "./init/validate-project-name.js";
 
@@ -45,11 +45,7 @@ export async function initProject(
 
 		await hooks.run("afterCreate", context);
 
-		if (options.installDependencies !== false) {
-			await installDependencies(destination);
-
-			await hooks.run("afterInstall", context);
-		}
+		await runCapabilities(archetype.capabilities, context);
 
 		await hooks.run("afterInit", context);
 	} catch (error) {
