@@ -3,6 +3,7 @@ export * from "./assert-archetype.js";
 export * from "./copy-archetype.js";
 export * from "./get-archetype.js";
 export * from "./get-archetype-path.js";
+export * from "./is-archetype.js";
 export * from "./list-archetypes.js";
 export { ARCHETYPE_REGISTRY } from "./registry.js";
 export * from "./render-archetype.js";
