@@ -1,10 +1,15 @@
-import { loadWorkspace, readPackageJson } from "@paszed/devkit";
+import { listPackages, loadWorkspace, readPackageJson } from "@paszed/devkit";
 
 /**
  * Prints information about the current workspace.
  */
 export async function workspaceInfo(): Promise<void> {
 	const workspace = await loadWorkspace();
+
+	const directories = await listPackages(
+		workspace.root,
+		workspace.pnpmWorkspace.packages,
+	);
 
 	console.log("");
 	console.log("Workspace");
@@ -16,7 +21,7 @@ export async function workspaceInfo(): Promise<void> {
 	console.log("Packages");
 	console.log("────────");
 
-	for (const directory of workspace.packages) {
+	for (const directory of directories) {
 		const packageJson = await readPackageJson(directory);
 
 		console.log(`• ${packageJson.name}`);
