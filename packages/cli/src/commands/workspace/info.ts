@@ -33,5 +33,10 @@ export async function workspaceInfo(): Promise<void> {
 	console.log("───────────────");
 	console.log(workspace.packageManager);
 
+  	console.log("");
+	console.log("Turbo");
+	console.log("─────");
+	console.log(`Tasks: ${Object.keys(workspace.turbo.tasks).join(", ")}`);
+
 	console.log("");
 }

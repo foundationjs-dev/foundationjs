@@ -3,6 +3,8 @@ import { readPackageJson } from "./read-package-json.js";
 import { readPnpmWorkspace } from "./read-pnpm-workspace.js";
 import { readTurboConfig } from "./read-turbo-config.js";
 
+import type { TurboConfig } from "../types/index.js";
+
 /**
  * Loads the current workspace.
  */
@@ -19,7 +21,8 @@ export async function loadWorkspace(cwd: string = process.cwd()) {
 		root,
 		packageJson,
 		pnpmWorkspace,
-		turbo,
+		turbo: turbo as TurboConfig,
 		packageManager: "pnpm" as const,
+		packages: [],
 	};
 }
