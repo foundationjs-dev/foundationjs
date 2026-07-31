@@ -31,4 +31,4 @@ export const ARCHETYPE_REGISTRY = [
 		kind: "building-block",
 		path: "building-blocks/service",
 	},
-] satisfies ArchetypeManifest[];
+] as const satisfies readonly ArchetypeManifest[];

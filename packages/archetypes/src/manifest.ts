@@ -3,8 +3,8 @@ export type ArchetypeKind =
 	| "building-block";
 
 export interface ArchetypeManifest {
-	name: string;
-	description: string;
-	kind: ArchetypeKind;
-	path: string;
+	readonly name: string;
+	readonly description: string;
+	readonly kind: ArchetypeKind;
+	readonly path: string;
 }
