@@ -49,7 +49,7 @@ export async function initProject(
 		}
 
 		if (options.initializeGit !== false) {
-			await initializeGit(destination);
+			await initializeGit(destination, options.commitMessage);
 		}
 
 		await hooks.run("afterInit", context);
