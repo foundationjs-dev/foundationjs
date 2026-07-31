@@ -11,6 +11,7 @@ import { ensureDirectoryDoesNotExist } from "./init/ensure-directory-does-not-ex
 import type { InitProjectOptions } from "./init/init-project-options.js";
 import type { InitProjectResult } from "./init/init-project-result.js";
 import { installDependencies } from "./init/install-dependencies.js";
+import { resolveArchetype } from "./init/resolve-archetype.js";
 import { validateProjectName } from "./init/validate-project-name.js";
 
 /**
@@ -23,7 +24,7 @@ export async function initProject(
 
 	validateProjectName(name);
 
-	const archetype = options.archetype ?? "next-app";
+	const archetype = resolveArchetype(options);
 	const destination = resolve(process.cwd(), name);
 
 	const context = createHookContext(name, destination, archetype);
