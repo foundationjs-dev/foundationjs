@@ -1,4 +1,5 @@
 import { findWorkspaceRoot } from "./find-workspace-root.js";
+import { listPackages } from "./list-packages.js";
 import { readPackageJson } from "./read-package-json.js";
 import { readPnpmWorkspace } from "./read-pnpm-workspace.js";
 import { readTurboConfig } from "./read-turbo-config.js";
@@ -15,10 +16,13 @@ export async function loadWorkspace(cwd: string = process.cwd()) {
 		readTurboConfig(root),
 	]);
 
+	const packages = await listPackages(root, pnpmWorkspace.packages);
+
 	return {
 		root,
 		packageJson,
 		pnpmWorkspace,
 		turbo,
+		packages,
 	};
 }
