@@ -1,4 +1,4 @@
-import { listPackages, loadWorkspace, readPackageJson } from "@paszed/devkit";
+import { loadWorkspace } from "@paszed/devkit";
 
 import { info } from "../../ui/index.js";
 
@@ -7,11 +7,6 @@ import { info } from "../../ui/index.js";
  */
 export async function workspaceInfo(): Promise<void> {
 	const workspace = await loadWorkspace();
-
-	const directories = await listPackages(
-		workspace.root,
-		workspace.pnpmWorkspace.packages,
-	);
 
 	info("Workspace");
 	console.log("─────────");
@@ -22,10 +17,8 @@ export async function workspaceInfo(): Promise<void> {
 	info("Packages");
 	console.log("────────");
 
-	for (const directory of directories) {
-		const packageJson = await readPackageJson(directory);
-
-		console.log(`• ${packageJson.name}`);
+	for (const workspacePackage of workspace.packages) {
+		console.log(`• ${workspacePackage.name}`);
 	}
 
 	console.log("");
@@ -33,8 +26,8 @@ export async function workspaceInfo(): Promise<void> {
 	console.log("───────────────");
 	console.log(workspace.packageManager);
 
-  	console.log("");
-	console.log("Turbo");
+	console.log("");
+	info("Turbo");
 	console.log("─────");
 	console.log(`Tasks: ${Object.keys(workspace.turbo.tasks).join(", ")}`);
 
