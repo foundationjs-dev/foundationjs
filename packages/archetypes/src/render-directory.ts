@@ -1,10 +1,9 @@
 import { join } from "node:path";
 
 import fg from "fast-glob";
-
-import type { TemplateValues } from "./template-values.js";
 import { isRenderable } from "./is-renderable.js";
 import { renderArchetype } from "./render-archetype.js";
+import type { TemplateValues } from "./template-values.js";
 
 export async function renderDirectory(
 	directory: string,

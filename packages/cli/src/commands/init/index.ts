@@ -1,6 +1,5 @@
-import { Command } from "commander";
-
 import { initProject } from "@paszed/core";
+import type { Command } from "commander";
 
 export function registerInitCommand(program: Command): void {
 	program

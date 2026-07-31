@@ -1,7 +1,6 @@
 import { copyDirectory } from "@paszed/devkit";
-
-import { assertArchetype } from "./assert-archetype.js";
 import type { Archetype } from "./archetype.js";
+import { assertArchetype } from "./assert-archetype.js";
 import { getArchetypePath } from "./get-archetype-path.js";
 import { renderDirectory } from "./render-directory.js";
 import type { TemplateValues } from "./template-values.js";

@@ -1,4 +1,4 @@
-import { extname, basename } from "node:path";
+import { basename, extname } from "node:path";
 
 const TEXT_EXTENSIONS = new Set([
 	".ts",
