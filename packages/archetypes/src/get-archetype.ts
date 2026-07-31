@@ -1,6 +1,6 @@
 import type { Archetype } from "./archetype.js";
-import { ARCHETYPE_REGISTRY } from "./registry.js";
 import type { ArchetypeManifest } from "./manifest.js";
+import { ARCHETYPE_REGISTRY } from "./registry.js";
 
 export function getArchetype(
 	name: Archetype,
