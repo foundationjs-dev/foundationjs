@@ -9,5 +9,7 @@ export async function copyDirectory(
 ): Promise<void> {
 	await cp(source, destination, {
 		recursive: true,
+		force: true,
+		errorOnExist: false,
 	});
 }
