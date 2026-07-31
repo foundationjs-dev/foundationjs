@@ -1,37 +1,33 @@
+import { Command } from "commander";
+
 import { initProject } from "@paszed/core";
-import type { Command } from "commander";
 
 export function registerInitCommand(program: Command): void {
 	program
 		.command("init")
 		.description("Initialize a new project")
 		.argument("<name>", "Project name")
-		.option("-a, --archetype <archetype>", "Project archetype", "next-app")
-		.action(
-			async (
-				name: string,
-				options: {
-					archetype: "next-app";
-				},
-			) => {
-				const result = await initProject({
-					name,
-					archetype: options.archetype,
-				});
+		.option(
+			"--archetype <name>",
+			"Project archetype",
+		)
+		.option(
+			"--no-git",
+			"Skip git initialization",
+		)
+		.action(async (name: string, options) => {
+			const result = await initProject({
+				name,
+				archetype: options.archetype,
+				initializeGit: options.git,
+			});
 
-				console.log(`
+			console.log(`
 ✔ Project created successfully!
 
 Project: ${result.name}
 Location: ${result.destination}
 Archetype: ${result.archetype}
-
-Next steps:
-
-  cd ${result.name}
-  pnpm install
-  pnpm dev
 `);
-			},
-		);
+		});
 }

@@ -43,11 +43,13 @@ export async function initProject(
 
 		await hooks.run("afterInstall", context);
 
-		const git = createGitProvider();
+		if (options.initializeGit !== false) {
+			const git = createGitProvider();
 
-		await git.init(destination);
-		await git.addAll(destination);
-		await git.commit(destination, "Initial commit");
+			await git.init(destination);
+			await git.addAll(destination);
+			await git.commit(destination, options.commitMessage ?? "Initial commit");
+		}
 
 		await hooks.run("afterInit", context);
 	} catch (error) {
