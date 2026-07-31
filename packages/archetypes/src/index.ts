@@ -7,3 +7,6 @@ export * from "./render-archetype.js";
 export * from "./render-archetypes.js";
 export * from "./render-directory.js";
 export * from "./template-values.js";
+export * from "./get-archetype.js";
+export * from "./manifest.js";
+export * from "./registry.js";

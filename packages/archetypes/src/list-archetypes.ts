@@ -1,15 +1,6 @@
-import { readdir } from "node:fs/promises";
+import { ARCHETYPE_REGISTRY } from "./registry.js";
+import type { ArchetypeManifest } from "./manifest.js";
 
-/**
- * Returns all available archetypes.
- */
-export async function listArchetypes(root: string): Promise<string[]> {
-	return readdir(`${root}/archetypes`, {
-		withFileTypes: true,
-	}).then((entries) =>
-		entries
-			.filter((entry) => entry.isDirectory())
-			.map((entry) => entry.name)
-			.sort(),
-	);
+export function listArchetypes(): ArchetypeManifest[] {
+	return ARCHETYPE_REGISTRY;
 }
