@@ -1,21 +1,17 @@
-import { type Archetype, copyArchetype } from "@paszed/archetypes";
+import { cp } from "node:fs/promises";
+import { resolve } from "node:path";
 
-import { createTemplateValues } from "./create-template-values.js";
+import { type ArchetypeManifest, getArchetypePath } from "@paszed/archetypes";
 
-export interface CopyProjectOptions {
-	archetype: Archetype;
+interface CopyProjectOptions {
+	archetype: ArchetypeManifest;
 	destination: string;
-	projectName: string;
 }
 
-export async function copyProject({
-	archetype,
-	destination,
-	projectName,
-}: CopyProjectOptions): Promise<void> {
-	await copyArchetype(
-		archetype,
-		destination,
-		createTemplateValues(projectName),
-	);
+export async function copyProject(options: CopyProjectOptions): Promise<void> {
+	const source = resolve(getArchetypePath(options.archetype.name));
+
+	await cp(source, options.destination, {
+		recursive: true,
+	});
 }

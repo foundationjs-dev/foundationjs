@@ -1,15 +1,17 @@
-import type { Archetype } from "@paszed/archetypes";
+import type { ArchetypeManifest } from "@paszed/archetypes";
 
 import type { HookContext } from "../hooks/index.js";
 
 export function createHookContext(
 	projectName: string,
 	destination: string,
-	archetype: Archetype,
+	archetype: ArchetypeManifest,
+	commitMessage?: string,
 ): HookContext {
 	return {
 		projectName,
 		destination,
 		archetype,
+		commitMessage,
 	};
 }

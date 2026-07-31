@@ -1,7 +1,9 @@
-import type { Archetype } from "@paszed/archetypes";
+import type { ArchetypeManifest } from "@paszed/archetypes";
 
 export interface InitProjectResult {
 	name: string;
+
 	destination: string;
-	archetype: Archetype;
+
+	archetype: ArchetypeManifest;
 }
