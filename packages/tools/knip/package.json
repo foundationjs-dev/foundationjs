@@ -22,7 +22,7 @@
 		"typecheck": "tsc --project tsconfig.json --noEmit"
 	},
 	"peerDependencies": {
-		"knip": "^5"
+		"knip": "^6.26.0"
 	},
 	"devDependencies": {
 		"knip": "^6.26.0"

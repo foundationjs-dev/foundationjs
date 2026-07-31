@@ -1,11 +1,13 @@
 import { readFile, writeFile } from "node:fs/promises";
 
+import type { TemplateValues } from "./template-values.js";
+
 /**
  * Replaces placeholders inside a file.
  */
 export async function renderArchetype(
 	file: string,
-	values: Record<string, string>,
+	values: TemplateValues,
 ): Promise<void> {
 	let content = await readFile(file, "utf8");
 

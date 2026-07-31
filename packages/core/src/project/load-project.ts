@@ -1,9 +1,9 @@
-import { BootstrapProject } from "./project.js";
+import type { BootstrapProject } from "./project.js";
 
 export async function loadProject(
-  cwd: string = process.cwd(),
+	cwd: string = process.cwd(),
 ): Promise<BootstrapProject> {
-  void cwd;
+	void cwd;
 
-  throw new Error("Not implemented.");
+	throw new Error("Not implemented.");
 }

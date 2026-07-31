@@ -22,7 +22,7 @@
 		"typecheck": "tsc --project tsconfig.json --noEmit"
 	},
 	"peerDependencies": {
-		"dependency-cruiser": "^17"
+		"dependency-cruiser": "^18.0.0"
 	},
 	"devDependencies": {
 		"dependency-cruiser": "^18.0.0"

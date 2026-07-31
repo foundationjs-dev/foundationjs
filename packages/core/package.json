@@ -19,10 +19,15 @@
 	"scripts": {
 		"build": "tsc --project tsconfig.json",
 		"clean": "rimraf dist tsconfig.tsbuildinfo",
+		"lint": "biome check .",
 		"typecheck": "tsc --project tsconfig.json --noEmit"
 	},
 	"dependencies": {
 		"@paszed/archetypes": "workspace:*",
-		"@paszed/devkit": "workspace:*"
+		"@paszed/devkit": "workspace:*",
+		"validate-npm-package-name": "^8.0.0"
+	},
+	"devDependencies": {
+		"@types/validate-npm-package-name": "^4.0.2"
 	}
 }

@@ -89,6 +89,13 @@ importers:
       '@paszed/devkit':
         specifier: workspace:*
         version: link:../devkit
+      validate-npm-package-name:
+        specifier: ^8.0.0
+        version: 8.0.0
+    devDependencies:
+      '@types/validate-npm-package-name':
+        specifier: ^4.0.2
+        version: 4.0.2
 
   packages/devkit:
     dependencies:

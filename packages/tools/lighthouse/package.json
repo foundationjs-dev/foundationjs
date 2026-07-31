@@ -22,7 +22,7 @@
 		"typecheck": "tsc --project tsconfig.json --noEmit"
 	},
 	"peerDependencies": {
-		"@lhci/cli": "^0.15.0"
+		"@lhci/cli": "^0.15.1"
 	},
 	"devDependencies": {
 		"@lhci/cli": "^0.15.1"

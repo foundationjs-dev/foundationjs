@@ -1,9 +1,9 @@
 {
-  "$schema": "./schemas/bootstrapper.schema.json",
-  "schemaVersion": 1,
-  "name": "bootstrapper",
-  "type": "platform",
-  "owner": "paszed",
-  "language": "typescript",
-  "packageManager": "pnpm"
+	"$schema": "./schemas/bootstrapper.schema.json",
+	"schemaVersion": 1,
+	"name": "bootstrapper",
+	"type": "platform",
+	"owner": "paszed",
+	"language": "typescript",
+	"packageManager": "pnpm"
 }
