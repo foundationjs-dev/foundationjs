@@ -23,6 +23,7 @@
 		"test": "vitest run"
 	},
 	"dependencies": {
+		"@paszed/archetypes": "workspace:*",
 		"@paszed/core": "workspace:*",
 		"@paszed/devkit": "workspace:*",
 		"commander": "^14.0.0"

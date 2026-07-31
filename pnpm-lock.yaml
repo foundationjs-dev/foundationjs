@@ -71,6 +71,9 @@ importers:
 
   packages/cli:
     dependencies:
+      '@paszed/archetypes':
+        specifier: workspace:*
+        version: link:../archetypes
       '@paszed/core':
         specifier: workspace:*
         version: link:../core
