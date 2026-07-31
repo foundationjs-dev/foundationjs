@@ -31,7 +31,7 @@ export async function workspaceInfo(): Promise<void> {
 	console.log("");
 	info("Package Manager");
 	console.log("───────────────");
-	console.log("pnpm");
+	console.log(workspace.packageManager);
 
 	console.log("");
 }
