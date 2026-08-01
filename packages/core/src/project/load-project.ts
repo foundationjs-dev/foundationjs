@@ -1,9 +1,28 @@
-import type { BootstrapProject } from "./project.js";
+import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
+
+import { BootstrapProject } from "./project.js";
 
 export async function loadProject(
 	cwd: string = process.cwd(),
 ): Promise<BootstrapProject> {
-	void cwd;
+	const foundationPath = resolve(cwd, ".foundation.json");
+	const templatePath = resolve(cwd, "template.json");
 
-	throw new Error("Not implemented.");
+	const foundation = JSON.parse(await readFile(foundationPath, "utf8"));
+
+	const template = JSON.parse(await readFile(templatePath, "utf8"));
+
+	return new BootstrapProject({
+		name: foundation.name,
+		type: template.type,
+		root: cwd,
+		packageManager: "pnpm",
+		language: template.language,
+		config: {
+			archetype: foundation.archetype,
+			framework: template.framework,
+			createdAt: foundation.createdAt,
+		},
+	});
 }

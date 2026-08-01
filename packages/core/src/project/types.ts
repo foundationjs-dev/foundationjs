@@ -8,5 +8,13 @@ export interface Project {
 
 	readonly language: string;
 
-	readonly config: unknown;
+	readonly config: {
+		readonly archetype?: {
+			readonly name?: string;
+		};
+
+		readonly framework?: string;
+
+		readonly createdAt?: string;
+	};
 }
