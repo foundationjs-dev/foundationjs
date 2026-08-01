@@ -6,6 +6,7 @@ import { registerArchetypesCommand } from "./commands/archetypes/index.js";
 import { registerEnvCommand } from "./commands/env/index.js";
 import { registerInitCommand } from "./commands/init/index.js";
 import { registerWorkspaceCommand } from "./commands/workspace/index.js";
+import { registerStatusCommand } from "./commands/status/index.js";
 
 const program = new Command();
 
@@ -18,5 +19,6 @@ registerInitCommand(program);
 registerWorkspaceCommand(program);
 registerArchetypesCommand(program);
 registerEnvCommand(program);
+registerStatusCommand(program);
 
 await program.parseAsync(process.argv);
