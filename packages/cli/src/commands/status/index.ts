@@ -26,6 +26,20 @@ export function registerStatusCommand(program: Command): void {
 
 			console.log();
 
+			console.log("Environment");
+
+			console.log(`✓ Package Manager: ${project.packageManager}`);
+
+			if (project.language) {
+				console.log(`✓ Language: ${project.language}`);
+			}
+
+			if (project.framework) {
+				console.log(`✓ Framework: ${project.framework}`);
+			}
+
+			console.log();
+
 			console.log("Repository");
 
 			console.log(project.hasGit ? "✓ Git initialized" : "✗ No Git repository");

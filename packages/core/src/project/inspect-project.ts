@@ -7,10 +7,23 @@ import type { ProjectResult } from "./project-result.js";
 export async function inspectProject(
 	directory = process.cwd(),
 ): Promise<ProjectResult> {
-	const project = await loadProject(directory);
-
+	const foundationPath = resolve(directory, ".foundation.json");
 	const packagePath = resolve(directory, "package.json");
 	const gitPath = resolve(directory, ".git");
+
+	let name: string | undefined;
+	let archetype: string | undefined;
+
+	let hasFoundationMetadata = false;
+
+	try {
+		const content = await readFile(foundationPath, "utf8");
+		const metadata = JSON.parse(content);
+
+		hasFoundationMetadata = true;
+		name = metadata.name;
+		archetype = metadata.archetype?.name;
+	} catch {}
 
 	let packages: string[] = [];
 
@@ -31,11 +44,28 @@ export async function inspectProject(
 		hasGit = true;
 	} catch {}
 
+	let packageManager = "unknown";
+	let language: string | undefined;
+	let framework: string | undefined;
+
+	if (hasFoundationMetadata) {
+		try {
+			const project = await loadProject(directory);
+
+			packageManager = project.project.packageManager;
+			language = project.project.language;
+			framework = project.project.config?.framework as string | undefined;
+		} catch {}
+	}
+
 	return {
-		name: project.project.name,
-		archetype: project.project.config?.archetype?.name,
+		name,
+		archetype,
 		packages,
-		hasFoundationMetadata: true,
+		packageManager,
+		language,
+		framework,
+		hasFoundationMetadata,
 		hasGit,
 	};
 }
