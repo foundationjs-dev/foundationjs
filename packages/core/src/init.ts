@@ -42,6 +42,10 @@ export async function initProject(
 		await copyProject({
 			archetype,
 			destination,
+			values: {
+				PROJECT_NAME: name,
+				PACKAGE_NAME: name,
+			},
 		});
 
 		await hooks.run("afterCreate", context);
