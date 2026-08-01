@@ -3,6 +3,7 @@
 import { Command } from "commander";
 
 import { registerArchetypesCommand } from "./commands/archetypes/index.js";
+import { registerEnvCommand } from "./commands/env/index.js";
 import { registerInitCommand } from "./commands/init/index.js";
 import { registerWorkspaceCommand } from "./commands/workspace/index.js";
 
@@ -16,5 +17,6 @@ program
 registerInitCommand(program);
 registerWorkspaceCommand(program);
 registerArchetypesCommand(program);
+registerEnvCommand(program);
 
 await program.parseAsync(process.argv);
