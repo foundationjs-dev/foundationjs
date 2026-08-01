@@ -5,8 +5,8 @@ import { Command } from "commander";
 import { registerArchetypesCommand } from "./commands/archetypes/index.js";
 import { registerEnvCommand } from "./commands/env/index.js";
 import { registerInitCommand } from "./commands/init/index.js";
-import { registerWorkspaceCommand } from "./commands/workspace/index.js";
 import { registerStatusCommand } from "./commands/status/index.js";
+import { registerWorkspaceCommand } from "./commands/workspace/index.js";
 
 const program = new Command();
 

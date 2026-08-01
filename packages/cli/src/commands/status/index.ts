@@ -28,11 +28,7 @@ export function registerStatusCommand(program: Command): void {
 
 			console.log("Repository");
 
-			console.log(
-				project.hasGit
-					? "✓ Git initialized"
-					: "✗ No Git repository",
-			);
+			console.log(project.hasGit ? "✓ Git initialized" : "✗ No Git repository");
 
 			console.log();
 

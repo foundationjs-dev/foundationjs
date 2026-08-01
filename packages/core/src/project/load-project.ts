@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
+import { detectPackageManager } from "../package-manager/index.js";
 import { BootstrapProject } from "./project.js";
 
 export async function loadProject(
@@ -17,7 +18,7 @@ export async function loadProject(
 		name: foundation.name,
 		type: template.type,
 		root: cwd,
-		packageManager: "pnpm",
+		packageManager: await detectPackageManager(cwd),
 		language: template.language,
 		config: {
 			archetype: foundation.archetype,
