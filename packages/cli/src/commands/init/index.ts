@@ -45,7 +45,7 @@ export function registerInitCommand(program: Command): void {
 				success(`
 Project: ${result.name}
 Location: ${result.destination}
-Archetype: ${result.archetype}
+Archetype: ${result.archetype.name}
 `);
 			} catch (reason) {
 				progress.stop();

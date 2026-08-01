@@ -4,7 +4,7 @@ export async function installDependencies(directory: string): Promise<void> {
 	const kind = await detectPackageManager(directory);
 
 	if (kind === "unknown") {
-		throw new Error("Unable to detect package manager.");
+		return;
 	}
 
 	const packageManager = createPackageManager(kind);

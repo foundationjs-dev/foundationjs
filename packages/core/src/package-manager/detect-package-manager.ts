@@ -10,30 +10,6 @@ const LOCKFILES: Array<[string, PackageManager]> = [
 	["bun.lockb", "bun"],
 ];
 
-function parsePackageManager(value: unknown): PackageManager | undefined {
-	if (typeof value !== "string") {
-		return;
-	}
-
-	if (value.startsWith("pnpm")) {
-		return "pnpm";
-	}
-
-	if (value.startsWith("npm")) {
-		return "npm";
-	}
-
-	if (value.startsWith("yarn")) {
-		return "yarn";
-	}
-
-	if (value.startsWith("bun")) {
-		return "bun";
-	}
-
-	return;
-}
-
 export async function detectPackageManager(
 	directory = process.cwd(),
 ): Promise<PackageManager> {
@@ -45,12 +21,23 @@ export async function detectPackageManager(
 	}
 
 	try {
-		const packagePath = resolve(directory, "package.json");
-		const content = await readFile(packagePath, "utf8");
-		const packageJson = JSON.parse(content);
+		const content = await readFile(resolve(directory, "package.json"), "utf8");
 
-		return parsePackageManager(packageJson.packageManager) ?? "unknown";
-	} catch {
-		return "unknown";
-	}
+		const manifest = JSON.parse(content);
+
+		if (typeof manifest.packageManager === "string") {
+			const [manager] = manifest.packageManager.split("@");
+
+			if (
+				manager === "pnpm" ||
+				manager === "npm" ||
+				manager === "yarn" ||
+				manager === "bun"
+			) {
+				return manager;
+			}
+		}
+	} catch {}
+
+	return "unknown";
 }
