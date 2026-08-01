@@ -9,19 +9,30 @@ export function registerInitCommand(program: Command): void {
 	program
 		.command("init")
 		.description("Initialize a new project")
-		.argument("<name>", "Project name")
+		.argument("[name]", "Project name")
 		.option("--archetype <name>", "Project archetype")
 		.option("--no-git", "Skip git initialization")
 		.option("--no-install", "Skip dependency installation")
 		.option("--commit-message <message>", "Initial git commit message")
-		.action(async (name: string, options) => {
+		.action(async (name: string | undefined, options) => {
 			const progress = createProgress();
 
 			try {
-				progress.start("Creating project");
+				const projectName = name ?? process.cwd().split("/").pop();
+
+				if (!projectName) {
+					throw new Error("Unable to determine project name");
+				}
+
+				const destination = name ? undefined : process.cwd();
+				const create = Boolean(name);
+
+				progress.start("Initializing project");
 
 				const result = await initProject({
-					name,
+					name: projectName,
+					destination,
+					create,
 					archetype: resolveArchetype(options.archetype),
 					initializeGit: options.git,
 					installDependencies: options.install,

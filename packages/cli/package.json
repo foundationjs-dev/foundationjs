@@ -5,6 +5,9 @@
 	"description": "CLI interface for Foundation.",
 	"license": "MIT",
 	"type": "module",
+	"bin": {
+		"foundation": "./dist/index.js"
+	},
 	"files": [
 		"dist"
 	],

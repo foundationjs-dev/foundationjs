@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { Command } from "commander";
 
 import { registerArchetypesCommand } from "./commands/archetypes/index.js";

@@ -10,7 +10,6 @@ import type { InitProjectOptions } from "./init/init-project-options.js";
 import type { InitProjectResult } from "./init/init-project-result.js";
 import { resolveArchetype } from "./init/resolve-archetype.js";
 import { validateProjectName } from "./init/validate-project-name.js";
-import { installDependencies } from "./package-manager/install.js";
 
 export async function initProject(
 	options: InitProjectOptions,
@@ -20,7 +19,7 @@ export async function initProject(
 	validateProjectName(name);
 
 	const archetype = resolveArchetype(options);
-	const destination = resolve(process.cwd(), name);
+	const destination = options.destination ?? resolve(process.cwd(), name);
 
 	const context = createHookContext(
 		name,
@@ -31,7 +30,9 @@ export async function initProject(
 
 	const hooks = createHookRunner();
 
-	await ensureDirectoryDoesNotExist(destination);
+	if (options.create !== false) {
+		await ensureDirectoryDoesNotExist(destination);
+	}
 
 	try {
 		await hooks.run("beforeCreate", context);
@@ -48,10 +49,6 @@ export async function initProject(
 		await runCapabilities(archetype.capabilities, "afterCreate", context);
 
 		if (options.installDependencies !== false) {
-			await installDependencies(destination);
-
-			await hooks.run("afterInstall", context);
-
 			await runCapabilities(archetype.capabilities, "afterInstall", context);
 		}
 
@@ -59,10 +56,12 @@ export async function initProject(
 
 		await hooks.run("afterInit", context);
 	} catch (error) {
-		await rm(destination, {
-			recursive: true,
-			force: true,
-		});
+		if (options.create !== false) {
+			await rm(destination, {
+				recursive: true,
+				force: true,
+			});
+		}
 
 		throw error;
 	}
