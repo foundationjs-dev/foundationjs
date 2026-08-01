@@ -54,7 +54,13 @@ export async function inspectProject(
 
 			packageManager = project.project.packageManager;
 			language = project.project.language;
-			framework = project.project.config?.framework as string | undefined;
+
+			const config = project.project.config;
+
+			if (typeof config === "object" && config !== null) {
+				framework =
+					"framework" in config ? String(config.framework) : undefined;
+			}
 		} catch {}
 	}
 
