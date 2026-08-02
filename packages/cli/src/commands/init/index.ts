@@ -14,7 +14,7 @@ export function registerInitCommand(program: Command): void {
 		.command("init")
 		.description("Initialize a new project")
 		.argument("[name]", "Project name")
-		.option("--archetype <name>", "Project archetype")
+		.option("--archetype <name>", "Project foundation archetype")
 		.option("--no-git", "Skip git initialization")
 		.option("--no-install", "Skip dependency installation")
 		.option("--commit-message <message>", "Initial git commit message")
@@ -52,7 +52,9 @@ Location: ${result.destination}
 Archetype: ${result.archetype.name}
 `);
 
-				printAutomationResults(result.automations);
+				if (result.automations.length > 0) {
+					printAutomationResults(result.automations);
+				}
 			} catch (reason) {
 				progress.stop();
 				handleError(reason);

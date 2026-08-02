@@ -12,3 +12,7 @@ export * from "./render-directory.js";
 export * from "./template-values.js";
 export * from "./manifest.js";
 export * from "./is-archetype.js";
+export * from "./integrations.js";
+export * from "./automations.js";
+export * from "./create-archetype.js";
+export * from "./decisions.js";

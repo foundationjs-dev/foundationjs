@@ -18,6 +18,14 @@ export function createFoundationPlan(
 		.map((name) => capabilityRegistry.get(name))
 		.filter((capability) => capability !== undefined);
 
+	const integrations = archetype.integrations
+		.map((name) => integrationRegistry.get(name))
+		.filter((integration) => integration !== undefined);
+
+	const automations = archetype.automations
+		.map((name) => AUTOMATION_REGISTRY.get(name))
+		.filter((automation) => automation !== undefined);
+
 	return {
 		projectName: options.name,
 
@@ -25,8 +33,8 @@ export function createFoundationPlan(
 
 		capabilities,
 
-		integrations: [...integrationRegistry.values()],
+		integrations,
 
-		automations: [...AUTOMATION_REGISTRY.values()],
+		automations,
 	};
 }

@@ -1,7 +1,6 @@
 import { rm } from "node:fs/promises";
 import { resolve } from "node:path";
 
-import type { AutomationResult } from "./automations/automation-result.js";
 import { loadConfig } from "./config/index.js";
 import { createHookRunner } from "./hooks/index.js";
 import { copyProject } from "./init/copy-project.js";
@@ -10,7 +9,11 @@ import { ensureDirectoryDoesNotExist } from "./init/ensure-directory-does-not-ex
 import type { InitProjectOptions } from "./init/init-project-options.js";
 import type { InitProjectResult } from "./init/init-project-result.js";
 import { validateProjectName } from "./init/validate-project-name.js";
-import { createFoundationPlan, executeFoundationPlan } from "./plans/index.js";
+import {
+	createFoundationPlan,
+	executeFoundationPlan,
+	type FoundationExecutionResult,
+} from "./plans/index.js";
 
 export async function initProject(
 	options: InitProjectOptions,
@@ -36,7 +39,10 @@ export async function initProject(
 
 	const hooks = createHookRunner();
 
-	let automationResults: AutomationResult[] = [];
+	let executionResult: FoundationExecutionResult = {
+		integrations: [],
+		automations: [],
+	};
 
 	if (options.create !== false) {
 		await ensureDirectoryDoesNotExist(destination);
@@ -64,7 +70,7 @@ export async function initProject(
 			await executeFoundationPlan(plan, "afterInstall", context);
 		}
 
-		automationResults = await executeFoundationPlan(plan, "afterInit", context);
+		executionResult = await executeFoundationPlan(plan, "afterInit", context);
 
 		await hooks.run("afterInit", context);
 	} catch (error) {
@@ -82,6 +88,6 @@ export async function initProject(
 		name,
 		destination,
 		archetype,
-		automations: automationResults,
+		automations: executionResult.automations,
 	};
 }

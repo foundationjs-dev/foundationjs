@@ -2,14 +2,15 @@ import type { AutomationContext } from "../automations/automation.js";
 import type { AutomationResult } from "../automations/automation-result.js";
 import type { CapabilityPhase } from "../capabilities/index.js";
 import type { HookContext } from "../hooks/index.js";
-
+import { detectIntegrations } from "./detect-integrations.js";
+import type { FoundationExecutionResult } from "./foundation-execution-result.js";
 import type { FoundationPlan } from "./foundation-plan.js";
 
 export async function executeFoundationPlan(
 	plan: FoundationPlan,
 	phase: CapabilityPhase,
 	context: HookContext,
-): Promise<AutomationResult[]> {
+): Promise<FoundationExecutionResult> {
 	for (const capability of plan.capabilities) {
 		if (!capability.phases.includes(phase)) {
 			continue;
@@ -19,7 +20,10 @@ export async function executeFoundationPlan(
 	}
 
 	if (phase !== "afterInit") {
-		return [];
+		return {
+			integrations: [],
+			automations: [],
+		};
 	}
 
 	const automationContext: AutomationContext = {
@@ -28,7 +32,7 @@ export async function executeFoundationPlan(
 		config: context.config,
 	};
 
-	const results: AutomationResult[] = [];
+	const automations: AutomationResult[] = [];
 
 	for (const automation of plan.automations) {
 		const available = await automation.canRun(automationContext);
@@ -37,8 +41,13 @@ export async function executeFoundationPlan(
 			continue;
 		}
 
-		results.push(await automation.run(automationContext));
+		automations.push(await automation.run(automationContext));
 	}
 
-	return results;
+	const integrations = await detectIntegrations(plan);
+
+	return {
+		integrations,
+		automations,
+	};
 }
