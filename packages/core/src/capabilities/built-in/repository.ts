@@ -1,5 +1,5 @@
-import { getRepositoryRegistry } from "../../repository/index.js";
 import type { HookContext } from "../../hooks/index.js";
+import { getRepositoryRegistry } from "../../repository/index.js";
 import type { Capability } from "../capability.js";
 
 export const repositoryCapability = {

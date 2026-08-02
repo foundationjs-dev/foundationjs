@@ -1,7 +1,9 @@
 import { rm } from "node:fs/promises";
 import { resolve } from "node:path";
 
+import { runAutomations } from "./automations/index.js";
 import { runCapabilities } from "./capabilities/index.js";
+import { loadConfig } from "./config/index.js";
 import { createHookRunner } from "./hooks/index.js";
 import { copyProject } from "./init/copy-project.js";
 import { createHookContext } from "./init/create-hook-context.js";
@@ -17,6 +19,8 @@ export async function initProject(
 	const { name } = options;
 
 	validateProjectName(name);
+
+	const config = await loadConfig();
 
 	const archetype = resolveArchetype(options);
 	const destination = options.destination ?? resolve(process.cwd(), name);
@@ -59,6 +63,21 @@ export async function initProject(
 		await runCapabilities(archetype.capabilities, "afterInit", context);
 
 		await hooks.run("afterInit", context);
+
+		if (config.automation?.createRepositories !== false) {
+			try {
+				await runAutomations({
+					projectName: name,
+					directory: destination,
+					config,
+				});
+			} catch (error) {
+				console.warn(
+					"Automation failed:",
+					error instanceof Error ? error.message : error,
+				);
+			}
+		}
 	} catch (error) {
 		if (options.create !== false) {
 			await rm(destination, {

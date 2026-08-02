@@ -6,6 +6,10 @@ import type { FoundationConfig } from "./foundation-config.js";
 const DEFAULT_CONFIG: FoundationConfig = {
 	initializeGit: true,
 	commitMessage: "Initial commit",
+
+	automation: {
+		createRepositories: true,
+	},
 };
 
 export async function loadConfig(

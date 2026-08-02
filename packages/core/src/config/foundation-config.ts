@@ -9,4 +9,8 @@ export interface FoundationConfig {
 	initializeGit?: boolean;
 
 	commitMessage?: string;
+
+	automation?: {
+		createRepositories?: boolean;
+	};
 }

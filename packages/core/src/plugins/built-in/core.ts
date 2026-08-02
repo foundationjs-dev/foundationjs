@@ -10,9 +10,9 @@ export const corePlugin: FoundationPlugin = {
 	name: "core",
 
 	capabilities: [
-	gitCapability,
-	dependenciesCapability,
-	metadataCapability,
-	repositoryCapability,
-],
+		gitCapability,
+		dependenciesCapability,
+		metadataCapability,
+		repositoryCapability,
+	],
 };

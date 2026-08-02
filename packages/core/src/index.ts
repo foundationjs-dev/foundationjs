@@ -1,3 +1,4 @@
+export * from "./automations/index.js";
 export * from "./bootstrap.js";
 export * from "./config/index.js";
 export * from "./git/index.js";
