@@ -6,6 +6,7 @@ export * from "./hooks/index.js";
 export * from "./init.js";
 export * from "./integrations/index.js";
 export * from "./package-manager/index.js";
+export * from "./plans/index.js";
 export * from "./plugins/index.js";
 export * from "./project/index.js";
 export * from "./repository/index.js";

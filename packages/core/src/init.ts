@@ -1,8 +1,8 @@
 import { rm } from "node:fs/promises";
 import { resolve } from "node:path";
+
 import type { AutomationResult } from "./automations/automation-result.js";
 import { runAutomations } from "./automations/index.js";
-import { runCapabilities } from "./capabilities/index.js";
 import { loadConfig } from "./config/index.js";
 import { createHookRunner } from "./hooks/index.js";
 import { copyProject } from "./init/copy-project.js";
@@ -10,8 +10,8 @@ import { createHookContext } from "./init/create-hook-context.js";
 import { ensureDirectoryDoesNotExist } from "./init/ensure-directory-does-not-exist.js";
 import type { InitProjectOptions } from "./init/init-project-options.js";
 import type { InitProjectResult } from "./init/init-project-result.js";
-import { resolveArchetype } from "./init/resolve-archetype.js";
 import { validateProjectName } from "./init/validate-project-name.js";
+import { createFoundationPlan, executeFoundationPlan } from "./plans/index.js";
 
 export async function initProject(
 	options: InitProjectOptions,
@@ -22,13 +22,16 @@ export async function initProject(
 
 	const config = await loadConfig();
 
-	const archetype = resolveArchetype(options);
+	const plan = createFoundationPlan(options);
+	const archetype = plan.archetype;
+
 	const destination = options.destination ?? resolve(process.cwd(), name);
 
 	const context = createHookContext(
 		name,
 		destination,
 		archetype,
+		config,
 		options.commitMessage,
 	);
 
@@ -43,7 +46,7 @@ export async function initProject(
 	try {
 		await hooks.run("beforeCreate", context);
 
-		await runCapabilities(archetype.capabilities, "beforeCreate", context);
+		await executeFoundationPlan(plan, "beforeCreate", context);
 
 		await copyProject({
 			archetype,
@@ -56,13 +59,13 @@ export async function initProject(
 
 		await hooks.run("afterCreate", context);
 
-		await runCapabilities(archetype.capabilities, "afterCreate", context);
+		await executeFoundationPlan(plan, "afterCreate", context);
 
 		if (options.installDependencies !== false) {
-			await runCapabilities(archetype.capabilities, "afterInstall", context);
+			await executeFoundationPlan(plan, "afterInstall", context);
 		}
 
-		await runCapabilities(archetype.capabilities, "afterInit", context);
+		await executeFoundationPlan(plan, "afterInit", context);
 
 		await hooks.run("afterInit", context);
 
