@@ -67,20 +67,253 @@ FoundationJS provides the surrounding foundation:
 
 ## Core Model
 
-FoundationJS treats applications as compositions of reusable capabilities.
+FoundationJS treats applications as compositions of reusable foundations.
 
-    Foundation
-        │
-        ├── Core primitives
-        ├── Configurations
-        ├── Capabilities
-        ├── Generators
-        ├── Developer tools
+        Archetype
         │
         ▼
-    Application
+    Foundation Plan
+        │
+        ├── Capabilities
+        ├── Integrations
+        └── Automations
+                │
+                ▼
+            Application
 
 Applications consume only what they require.
+
+---
+
+## Archetypes
+
+Archetypes define the type of project being created.
+
+An archetype is the starting blueprint that determines the foundation an application receives.
+
+Examples:
+
+    platform
+        ├── application structure
+        ├── TypeScript setup
+        ├── Next.js foundation
+        ├── development tooling
+        └── production conventions
+
+    website
+        ├── frontend structure
+        ├── Next.js setup
+        └── deployment workflow
+
+    library
+        ├── package configuration
+        ├── build tooling
+        └── publishing workflow
+
+    cli
+        ├── executable structure
+        ├── command framework
+        └── release workflow
+
+Archetypes should provide sensible defaults instead of forcing developers through unnecessary configuration.
+
+---
+
+## Capabilities
+
+Capabilities are reusable pieces of engineering infrastructure.
+
+Instead of copying entire templates, applications compose capabilities.
+
+Examples:
+
+    Base Application
+
+        +
+        Git Repository
+
+        +
+        Dependency Management
+
+        +
+        Metadata
+
+        +
+        Testing
+
+        +
+        Documentation
+
+        =
+        Production Foundation
+
+Capabilities represent what a project can do.
+
+They are independent building blocks that can be reused across different archetypes.
+
+---
+
+## Integrations
+
+Integrations connect FoundationJS projects with external services.
+
+Examples:
+
+- GitHub
+- Vercel
+- databases
+- authentication providers
+- storage providers
+- monitoring systems
+
+Integrations should only be enabled where they make sense for the chosen archetype.
+
+A CLI project should not receive frontend deployment tooling.
+
+A website should not receive database infrastructure by default.
+
+---
+
+## Automations
+
+Automations execute setup tasks based on the selected foundation.
+
+Example:
+
+    foundation init website
+
+            ↓
+
+    Create project
+
+            ↓
+
+    Initialize git
+
+            ↓
+
+    Install dependencies
+
+            ↓
+
+    Create GitHub repository
+
+            ↓
+
+    Configure deployment
+
+Automations return structured results that can be consumed by different interfaces.
+
+The CLI is only one possible consumer.
+
+---
+
+## Project Composition Model
+
+FoundationJS treats an archetype as the source of truth for creating a project.
+
+An archetype defines the default foundation a project receives:
+
+    Archetype
+
+        ├── Stack decisions
+        │       ├── framework
+        │       ├── language
+        │       └── tooling
+        │
+        ├── Capabilities
+        │       ├── git
+        │       ├── testing
+        │       ├── documentation
+        │       └── development workflow
+        │
+        ├── Integrations
+        │       ├── GitHub
+        │       ├── Vercel
+        │       ├── Supabase
+        │       └── external services
+        │
+        └── Optional decisions
+                ├── database
+                ├── authentication
+                ├── storage
+                └── background jobs
+
+The goal is not maximum configuration.
+
+The goal is the correct foundation with minimal friction.
+
+---
+
+## Guided and Power User Workflows
+
+FoundationJS supports both guided workflows and complete automation.
+
+The default workflow is designed around sensible engineering decisions.
+
+Example:
+
+    foundation init platform
+
+Foundation determines obvious decisions automatically:
+
+    ✓ TypeScript
+    ✓ Next.js
+    ✓ Git
+    ✓ Dependencies
+    ✓ Project structure
+
+Only architectural decisions require input:
+
+    Optional services:
+
+    Database?
+    Authentication?
+    Storage?
+    Deployment?
+
+A developer should not need to configure decisions that are already determined by the selected archetype.
+
+---
+
+## Automated Workflows
+
+Power users and CI environments can configure everything explicitly.
+
+The same foundation engine can be driven through commands, configuration files, or presets.
+
+Example:
+
+    foundation init my-app \
+        --archetype platform \
+        --database supabase \
+        --auth supabase \
+        --deployment vercel \
+        --github \
+        --private
+
+Or through a reusable preset:
+
+    foundation init my-app --preset production
+
+Example preset:
+
+    archetype: platform
+
+    capabilities:
+      - git
+      - dependencies
+      - testing
+      - documentation
+
+    integrations:
+      - github
+      - vercel
+      - supabase
+
+Both workflows produce the same result.
+
+The CLI is only an interface. The underlying FoundationJS model remains the source of truth.
 
 ---
 
@@ -111,63 +344,6 @@ FoundationJS is organized as a modular monorepo.
 
 ---
 
-## Packages
-
-### Core
-
-Foundation primitives and shared concepts.
-
-### Engine
-
-Composition and orchestration logic.
-
-### CLI
-
-The developer interface for interacting with FoundationJS.
-
-### Generators
-
-Automated creation of project resources.
-
-### Capabilities
-
-Reusable application capabilities.
-
-### Configs
-
-Shared development configurations.
-
-### Devkit
-
-Developer utilities and helpers.
-
----
-
-## Capabilities
-
-FoundationJS is built around composability.
-
-Instead of copying entire project templates, applications compose capabilities:
-
-    Base Application
-
-        +
-        TypeScript
-
-        +
-        Testing
-
-        +
-        Documentation
-
-        +
-        Deployment
-
-        =
-        Production Foundation
-
----
-
 ## Developer Experience
 
 FoundationJS aims to make high-quality engineering defaults automatic.
@@ -181,6 +357,7 @@ FoundationJS handles:
 - tooling
 - automation
 - validation
+- project setup
 
 ---
 
@@ -216,8 +393,6 @@ Instead of agents inventing project structures repeatedly:
     Generated Application
 
           ↓
-
-    Validation
 
 The foundation already contains the engineering decisions.
 
