@@ -1,6 +1,6 @@
 import { rm } from "node:fs/promises";
 import { resolve } from "node:path";
-
+import type { AutomationResult } from "./automations/automation-result.js";
 import { runAutomations } from "./automations/index.js";
 import { runCapabilities } from "./capabilities/index.js";
 import { loadConfig } from "./config/index.js";
@@ -34,6 +34,8 @@ export async function initProject(
 
 	const hooks = createHookRunner();
 
+	let automationResults: AutomationResult[] = [];
+
 	if (options.create !== false) {
 		await ensureDirectoryDoesNotExist(destination);
 	}
@@ -65,18 +67,11 @@ export async function initProject(
 		await hooks.run("afterInit", context);
 
 		if (config.automation?.createRepositories !== false) {
-			try {
-				await runAutomations({
-					projectName: name,
-					directory: destination,
-					config,
-				});
-			} catch (error) {
-				console.warn(
-					"Automation failed:",
-					error instanceof Error ? error.message : error,
-				);
-			}
+			automationResults = await runAutomations({
+				projectName: name,
+				directory: destination,
+				config,
+			});
 		}
 	} catch (error) {
 		if (options.create !== false) {
@@ -93,5 +88,6 @@ export async function initProject(
 		name,
 		destination,
 		archetype,
+		automations: automationResults,
 	};
 }

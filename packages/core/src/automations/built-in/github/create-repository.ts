@@ -23,57 +23,69 @@ export const githubRepositoryAutomation: Automation = {
 	},
 
 	async run(context) {
-		try {
-			const { stdout } = await execFileAsync("gh", [
-				"api",
-				"user",
-				"--jq",
-				".login",
-			]);
+		const { stdout } = await execFileAsync("gh", [
+			"api",
+			"user",
+			"--jq",
+			".login",
+		]);
 
-			const owner = stdout.trim();
-			const repository = `${owner}/${context.projectName}`;
+		const owner = stdout.trim();
+		const repository = `${owner}/${context.projectName}`;
 
-			const exists = await repositoryExists(repository);
+		const exists = await repositoryExists(repository);
 
-			if (exists) {
-				await execFileAsync(
-					"git",
-					["remote", "add", "origin", `git@github.com:${repository}.git`],
-					{
-						cwd: context.directory,
-					},
-				);
-
-				await execFileAsync("git", ["push", "-u", "origin", "main"], {
-					cwd: context.directory,
-				});
-
-				return;
-			}
-
+		if (exists) {
 			await execFileAsync(
-				"gh",
-				[
-					"repo",
-					"create",
-					context.projectName,
-					"--source",
-					context.directory,
-					"--push",
-					"--private",
-				],
+				"git",
+				["remote", "add", "origin", `git@github.com:${repository}.git`],
 				{
 					cwd: context.directory,
 				},
 			);
-		} catch (error) {
-			throw new Error(
-				`GitHub repository setup failed: ${
-					error instanceof Error ? error.message : String(error)
-				}`,
-			);
+
+			try {
+				await execFileAsync("git", ["push", "-u", "origin", "main"], {
+					cwd: context.directory,
+				});
+
+				return {
+					status: "success",
+					title: "GitHub repository connected",
+					message: "Remote configured and initial push completed.",
+				};
+			} catch {
+				return {
+					status: "warning",
+					title: "GitHub repository connected",
+					message:
+						"Remote contains existing commits. Initial push was skipped.",
+					details: ["Run git pull origin main to integrate remote history."],
+				};
+			}
 		}
+
+		await execFileAsync(
+			"gh",
+			[
+				"repo",
+				"create",
+				context.projectName,
+				"--source",
+				context.directory,
+				"--push",
+				"--private",
+			],
+			{
+				cwd: context.directory,
+			},
+		);
+
+		return {
+			status: "success",
+			title: "GitHub repository created",
+			message: "Repository created and initial push completed.",
+		};
 	},
 };
 

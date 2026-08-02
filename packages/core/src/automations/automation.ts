@@ -1,4 +1,5 @@
 import type { FoundationConfig } from "../config/index.js";
+import type { AutomationResult } from "./automation-result.js";
 
 export interface AutomationContext {
 	projectName: string;
@@ -15,5 +16,5 @@ export interface Automation {
 
 	canRun(context: AutomationContext): Promise<boolean>;
 
-	run(context: AutomationContext): Promise<void>;
+	run(context: AutomationContext): Promise<AutomationResult>;
 }
