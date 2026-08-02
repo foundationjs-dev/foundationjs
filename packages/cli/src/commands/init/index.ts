@@ -2,7 +2,11 @@ import { initProject } from "@paszed/core";
 import type { Command } from "commander";
 
 import { handleError } from "../../errors/handle-error.js";
-import { createProgress, success } from "../../ui/index.js";
+import {
+	createProgress,
+	printAutomationResults,
+	success,
+} from "../../ui/index.js";
 import { resolveArchetype } from "../../utils/resolve-archetype.js";
 
 export function registerInitCommand(program: Command): void {
@@ -47,6 +51,8 @@ Project: ${result.name}
 Location: ${result.destination}
 Archetype: ${result.archetype.name}
 `);
+
+				printAutomationResults(result.automations);
 			} catch (reason) {
 				progress.stop();
 				handleError(reason);

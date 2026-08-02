@@ -1,3 +1,4 @@
+export * from "./automation.js";
 export * from "./logger.js";
 export * from "./progress.js";
 export * from "./section.js";
