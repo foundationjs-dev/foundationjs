@@ -1,4 +1,5 @@
 export type ArchetypeCapability =
 	| "git"
 	| "dependencies"
-	| "metadata";
+	| "metadata"
+	| "repository";

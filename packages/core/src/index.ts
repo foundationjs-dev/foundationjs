@@ -7,3 +7,4 @@ export * from "./integrations/index.js";
 export * from "./package-manager/index.js";
 export * from "./plugins/index.js";
 export * from "./project/index.js";
+export * from "./repository/index.js";
