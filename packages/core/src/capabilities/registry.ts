@@ -1,12 +1,14 @@
-import {
-	dependenciesCapability,
-	gitCapability,
-	metadataCapability,
-} from "./built-in/index.js";
+import { PLUGIN_REGISTRY } from "../plugins/registry.js";
 import type { Capability } from "./capability.js";
 
-export const CAPABILITY_REGISTRY = new Map<string, Capability>([
-	[gitCapability.name, gitCapability],
-	[dependenciesCapability.name, dependenciesCapability],
-	[metadataCapability.name, metadataCapability],
-]);
+export function getCapabilityRegistry(): Map<string, Capability> {
+	const registry = new Map<string, Capability>();
+
+	for (const plugin of PLUGIN_REGISTRY.values()) {
+		for (const capability of plugin.capabilities ?? []) {
+			registry.set(capability.name, capability);
+		}
+	}
+
+	return registry;
+}

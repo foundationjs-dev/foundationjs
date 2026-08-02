@@ -1,4 +1,4 @@
-import { INTEGRATION_REGISTRY } from "@paszed/core";
+import { getIntegrationRegistry } from "@paszed/core";
 import type { Command } from "commander";
 
 import { success } from "../../ui/index.js";
@@ -10,7 +10,7 @@ export function registerEnvCommand(program: Command): void {
 		.action(async () => {
 			success("Foundation Environment\n");
 
-			for (const integration of INTEGRATION_REGISTRY.values()) {
+			for (const integration of getIntegrationRegistry().values()) {
 				const status = await integration.detect();
 
 				console.log(status.name);
