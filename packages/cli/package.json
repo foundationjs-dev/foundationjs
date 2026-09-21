@@ -29,7 +29,7 @@
 		"@paszed/archetypes": "workspace:*",
 		"@paszed/core": "workspace:*",
 		"@paszed/devkit": "workspace:*",
-		"commander": "^14.0.0"
+		"commander": "^15.0.0"
 	},
 	"devDependencies": {
 		"vitest": "^3.2.4"
